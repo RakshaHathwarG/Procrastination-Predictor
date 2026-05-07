@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Procrastination Predictor"
+version = "1.0.0"
+id = "artifacts/procrastination-predictor"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25828
+
+[services.development]
+run = "pnpm --filter @workspace/procrastination-predictor run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/procrastination-predictor", "run", "build" ]
+publicDir = "artifacts/procrastination-predictor/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25828"
+BASE_PATH = "/"
